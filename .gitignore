@@ -1,0 +1,35 @@
+# 系统文件
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+# IDE配置
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+
+# 临时文件
+*.tmp
+*.temp
+*.log
+
+# 敏感信息
+*.env
+*.key
+*.pem
+*.secret
+
+# 依赖目录
+node_modules/
+__pycache__/
+*.pyc
+
+# 编辑器备份
+*~
+*.bak
+*.orig
+
+# 个人经历目录（包含敏感个人信息，不提交）
+client/

@@ -1,0 +1,125 @@
+# Git 提交约束规则
+
+## 提交信息格式
+
+```
+<type>(<scope>): <subject>
+
+<body>
+
+<footer>
+```
+
+## Type 类型（必填）
+
+| 类型 | 说明 | 示例 |
+|------|------|------|
+| feat | 新功能 | feat(agent): 添加薪资查询功能 |
+| fix | 修复bug | fix(template): 修复简历格式问题 |
+| docs | 文档更新 | docs(readme): 更新使用说明 |
+| style | 代码格式（不影响功能） | style: 统一缩进格式 |
+| refactor | 重构（非新功能、非修复） | refactor(agent): 优化提示词结构 |
+| perf | 性能优化 | perf: 优化查询响应速度 |
+| test | 测试相关 | test: 添加单元测试 |
+| chore | 构建/工具变更 | chore: 更新.gitignore |
+| revert | 回滚 | revert: 回滚feat-xxx |
+
+## Scope 范围（可选）
+
+| 范围 | 说明 |
+|------|------|
+| agent | AGENTS.md相关 |
+| template | 简历模板相关 |
+| config | 配置文件相关 |
+| docs | 文档相关 |
+
+## Subject 主题（必填）
+
+- 简短描述，不超过50个字符
+- 使用中文或英文，保持一致
+- 不以句号结尾
+- 使用祈使句（动词开头）
+
+## Body 正文（可选）
+
+- 详细描述本次修改的内容和原因
+- 每行不超过72个字符
+- 可以分多段描述
+
+## Footer 页脚（可选）
+
+- 关联Issue：Closes #123
+- 破坏性变更：BREAKING CHANGE: xxx
+
+---
+
+## 提交示例
+
+### 简单提交
+```
+feat(agent): 添加内容真实性约束
+```
+
+### 详细提交
+```
+feat(agent): 添加企业信息查询功能
+
+- 新增webfetch权限配置
+- 添加公司背景查询规范
+- 添加薪资数据查询规范
+
+Closes #10
+```
+
+### 修复提交
+```
+fix(template): 修复简历模板格式问题
+
+- 修复技术栈分类不清晰
+- 修复项目经验缺少量化数据
+
+Closes #15
+```
+
+---
+
+## 分支命名规范
+
+| 分支类型 | 命名格式 | 示例 |
+|---------|---------|------|
+| 主分支 | main | main |
+| 开发分支 | dev | dev |
+| 功能分支 | feat/<功能名> | feat/company-search |
+| 修复分支 | fix/<问题名> | fix/template-format |
+| 文档分支 | docs/<文档名> | docs/readme |
+
+---
+
+## 文件命名规范
+
+| 文件类型 | 命名格式 | 示例 |
+|---------|---------|------|
+| Agent配置 | AGENTS.md | AGENTS.md |
+| 简历模板 | 简历模板.md 或 <类型>-resume.md | 简历模板.md |
+| 文档 | <名称>.md | README.md |
+| 配置 | .<名称> | .gitignore |
+
+---
+
+## 提交前检查清单
+
+- [ ] 提交信息符合格式规范
+- [ ] 文件命名符合规范
+- [ ] 没有提交敏感信息（密钥、密码等）
+- [ ] 没有提交临时文件、缓存文件
+- [ ] 代码/文档格式统一
+
+---
+
+## 禁止提交的内容
+
+- ❌ API密钥、密码、Token
+- ❌ 临时文件、缓存文件
+- ❌ IDE配置文件（.idea、.vscode）
+- ❌ 系统文件（.DS_Store、Thumbs.db）
+- ❌ 依赖目录（node_modules）
