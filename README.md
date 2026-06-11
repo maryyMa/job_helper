@@ -56,7 +56,7 @@ cd job_helper
 cp client/example.md client/你的名字.md
 
 # 例如
-cp client/example.md client/马莉.md
+cp client/example.md client/张三.md
 ```
 
 然后编辑 `client/你的名字.md`，填写你的个人信息：
