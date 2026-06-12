@@ -1,6 +1,6 @@
 ---
 name: convert-resume
-description: 将Markdown简历转换为带有颜色主题的HTML或PDF格式
+description: 将Markdown简历转换为带有颜色主题的HTML格式
 mode: subagent
 permission:
   edit: allow
@@ -12,14 +12,13 @@ permission:
 
 # 简历格式转换技能
 
-将Markdown简历转换为美观的HTML或PDF格式，支持多种颜色主题。
+将Markdown简历转换为美观的HTML格式，支持多种颜色主题。
 
 ## 功能
 
 1. Markdown → HTML（带CSS样式）
-2. HTML → PDF
-3. 支持多种颜色主题
-4. 支持自定义样式
+2. 支持多种颜色主题
+3. 支持自定义样式
 
 ## 使用方法
 
@@ -27,10 +26,7 @@ permission:
 
 ```bash
 # 转换为HTML
-python convert_resume.py input.md --format html --theme blue
-
-# 转换为PDF
-python convert_resume.py input.md --format pdf --theme green
+python convert_resume.py input.md --theme blue
 
 # 查看可用主题
 python convert_resume.py --list-themes
@@ -52,14 +48,13 @@ python convert_resume.py --list-themes
 ### 依赖库
 
 ```bash
-pip install markdown weasyprint jinja2
+pip install markdown jinja2
 ```
 
 ### 核心代码
 
 ```python
 import markdown
-from weasyprint import HTML
 from jinja2 import Template
 
 # Markdown转HTML
@@ -67,10 +62,6 @@ def md_to_html(md_content, theme='blue'):
     html_body = markdown.markdown(md_content, extensions=['tables', 'fenced_code'])
     template = Template(HTML_TEMPLATE)
     return template.render(content=html_body, theme=theme)
-
-# HTML转PDF
-def html_to_pdf(html_content, output_path):
-    HTML(string=html_content).write_pdf(output_path)
 ```
 
 ## CSS主题样式
@@ -125,13 +116,11 @@ td { border: 1px solid #e2e8f0; padding: 8px; }
 ```
 output/{用户名字}/{公司}/
 ├── {用户名字}-{岗位}-简历.md          # 原始Markdown
-├── {用户名字}-{岗位}-简历.html        # HTML版本
-└── {用户名字}-{岗位}-简历.pdf          # PDF版本
+└── {用户名字}-{岗位}-简历-{theme}.html # HTML版本
 ```
 
 ## 注意事项
 
-1. 首次使用需要安装依赖：`pip install markdown weasyprint jinja2`
-2. PDF转换需要系统安装字体
-3. 中文支持需要确保系统有中文字体
-4. 复杂的Markdown格式可能需要调整CSS
+1. 首次使用需要安装依赖：`pip install markdown jinja2`
+2. 复杂的Markdown格式可能需要调整CSS
+3. 用浏览器打开HTML文件即可查看效果

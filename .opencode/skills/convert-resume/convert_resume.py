@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 """
 简历格式转换工具
-将Markdown简历转换为带有颜色主题的HTML或PDF格式
+将Markdown简历转换为带有颜色主题的HTML格式
 """
 
 import argparse
@@ -15,12 +15,6 @@ try:
 except ImportError:
     print("请先安装依赖：pip install markdown")
     sys.exit(1)
-
-try:
-    from weasyprint import HTML
-    HAS_WEASYPRINT = True
-except ImportError:
-    HAS_WEASYPRINT = False
 
 try:
     from jinja2 import Template
@@ -173,9 +167,18 @@ HTML_TEMPLATE = '''<!DOCTYPE html>
             padding-left: 24px;
         }
         
+        ul {
+            list-style-type: disc;
+        }
+        
+        ol {
+            list-style-type: decimal;
+        }
+        
         li {
             margin-bottom: 8px;
             color: var(--text-color);
+            list-style-position: outside;
         }
         
         code {
@@ -286,32 +289,13 @@ def md_to_html(md_content, title="简历", theme='blue'):
     return html
 
 
-def html_to_pdf(html_content, output_path):
-    """
-    将HTML转换为PDF
-    
-    Args:
-        html_content: HTML内容
-        output_path: PDF输出路径
-    """
-    if not HAS_WEASYPRINT:
-        print("错误：PDF转换需要weasyprint库")
-        print("请运行：pip install weasyprint")
-        print("或者使用HTML版本：--format html")
-        return False
-    
-    HTML(string=html_content).write_pdf(output_path)
-    print(f"PDF已生成：{output_path}")
-    return True
-
-
 def convert_file(input_path, output_format='html', theme='blue', title=None):
     """
     转换文件
     
     Args:
         input_path: 输入文件路径
-        output_format: 输出格式（html/pdf）
+        output_format: 输出格式（html）
         theme: 颜色主题
         title: 页面标题
     """
@@ -340,19 +324,6 @@ def convert_file(input_path, output_format='html', theme='blue', title=None):
         with open(output_path, 'w', encoding='utf-8') as f:
             f.write(html_content)
         print(f"HTML已生成：{output_path}")
-    
-    elif output_format == 'pdf':
-        html_path = output_dir / f"{stem}-{theme}.html"
-        pdf_path = output_dir / f"{stem}-{theme}.pdf"
-        
-        # 先保存HTML
-        with open(html_path, 'w', encoding='utf-8') as f:
-            f.write(html_content)
-        print(f"HTML已生成：{html_path}")
-        
-        # 转换为PDF
-        html_to_pdf(html_content, pdf_path)
-    
     else:
         print(f"错误：不支持的格式 - {output_format}")
         return
@@ -360,7 +331,7 @@ def convert_file(input_path, output_format='html', theme='blue', title=None):
 
 def main():
     parser = argparse.ArgumentParser(
-        description='将Markdown简历转换为带有颜色主题的HTML或PDF格式'
+        description='将Markdown简历转换为带有颜色主题的HTML格式'
     )
     
     parser.add_argument(
@@ -371,7 +342,7 @@ def main():
     
     parser.add_argument(
         '-f', '--format',
-        choices=['html', 'pdf'],
+        choices=['html'],
         default='html',
         help='输出格式（默认：html）'
     )

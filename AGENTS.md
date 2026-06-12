@@ -323,11 +323,10 @@ output/
 
 ### 第七步：格式转换（可选）
 
-调用 `convert-resume` 技能，将Markdown简历转换为更美观的HTML或PDF格式：
+调用 `convert-resume` 技能，将Markdown简历转换为更美观的HTML格式：
 
 **支持格式**
 - HTML：带CSS样式的网页版本
-- PDF：可打印的文档版本
 
 **可用主题**
 | 主题 | 颜色 | 适用场景 |
@@ -342,10 +341,7 @@ output/
 **转换命令**
 ```bash
 # 转换为HTML
-python .opencode/skills/convert-resume/convert_resume.py output/{用户}/{公司}/{用户}-{岗位}-简历.md --format html --theme blue
-
-# 转换为PDF（需要安装weasyprint）
-python .opencode/skills/convert-resume/convert_resume.py output/{用户}/{公司}/{用户}-{岗位}-简历.md --format pdf --theme blue
+python .opencode/skills/convert-resume/convert_resume.py output/{用户}/{公司}/{用户}-{岗位}-简历.md --theme blue
 ```
 
 **最终输出必须包含：**
